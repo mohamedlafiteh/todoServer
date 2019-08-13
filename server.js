@@ -29,11 +29,11 @@ app.delete("/todo/:todoId", (req, res) => {
   var todoId = req.params.todoId;
   console.log(todoId);
   var todo = todos.find(todo => {
-    return todo.todoId == todoId;
+    return todo.id == todoId;
   });
   console.log(todo);
   todos.splice(todos.indexOf(todo), 1);
-  res.send(" Element is deleted");
+  res.send(todos);
 });
 
 // app.post("/albums", (req, res) => {
