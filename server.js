@@ -14,6 +14,29 @@ app.get("/todo", (req, res) => {
   res.send(todos);
 });
 
+const { Pool } = require("pg");
+
+const pool = new Pool({
+  user: "taskadmin",
+  host: "localhost",
+  database: "cyf_todo",
+  password: "task1234",
+  port: 5432
+});
+
+app.get("/todos", function(req, res) {
+  pool.query("SELECT * FROM tasks", (error, result) => {
+    if (error) {
+      res.json({
+        error: error
+      });
+    }
+    res.json({
+      todos: result.rows
+    });
+  });
+});
+
 // GET /todo/3
 // app.get("/todo/:id", (req, res) => {
 //   console.log(req.params);
