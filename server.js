@@ -6,8 +6,8 @@ const cors = require("cors");
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static("public"));
-app.listen(process.env.PORT || 3005, () => {
-  console.log("server is listening on port 3005");
+app.listen(process.env.PORT || 3004, () => {
+  console.log("server is listening on port 3004");
 });
 
 app.get("/todo", (req, res) => {
