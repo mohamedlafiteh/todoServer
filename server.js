@@ -31,9 +31,7 @@ app.get("/todos", function(req, res) {
         error: error
       });
     }
-    res.json({
-      todos: result.rows
-    });
+    res.json(result.rows);
   });
 });
 
@@ -51,12 +49,15 @@ app.get("/todos", function(req, res) {
 app.delete("/todo/:todoId", (req, res) => {
   var todoId = req.params.todoId;
   console.log(todoId);
-  var todo = todos.find(todo => {
-    return todo.id == todoId;
+  pool.query(`delete from tasks where id=${todoId}`, (err, data) => {
+    if (err) {
+      console.log(err);
+      res.send("An error occured when deleting");
+    }
+    res.json({
+      message: `Great man. Deleted the task wiht id ${todoId}`
+    });
   });
-  console.log(todo);
-  todos.splice(todos.indexOf(todo), 1);
-  res.send(todos);
 });
 
 // app.post("/albums", (req, res) => {
@@ -85,25 +86,25 @@ app.delete("/todo/:todoId", (req, res) => {
 //     res.send("test");
 // });
 
-const todos = [
-  {
-    id: 1,
-    title: "study React",
-    completed: false
-  },
-  {
-    id: 2,
-    title: "play football",
-    completed: false
-  },
-  {
-    id: 3,
-    title: "dinner with friends",
-    completed: false
-  },
-  {
-    id: 4,
-    title: "travel to Italy",
-    completed: false
-  }
-];
+// const todos = [
+//   {
+//     id: 1,
+//     title: "study React",
+//     completed: false
+//   },
+//   {
+//     id: 2,
+//     title: "play football",
+//     completed: false
+//   },
+//   {
+//     id: 3,
+//     title: "dinner with friends",
+//     completed: false
+//   },
+//   {
+//     id: 4,
+//     title: "travel to Italy",
+//     completed: false
+//   }
+// ];
